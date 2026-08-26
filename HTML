@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>অ্যাডমিন লগইন</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Hind Siliguri", sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(0, 183, 255, 0.15), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(79, 70, 229, 0.18), transparent 30%),
+        #07111f;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    /* Background decoration */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    body::before {
+      width: 260px;
+      height: 260px;
+      background: rgba(0, 174, 255, 0.08);
+      top: -80px;
+      left: -80px;
+    }
+
+    body::after {
+      width: 320px;
+      height: 320px;
+      background: rgba(99, 102, 241, 0.08);
+      bottom: -120px;
+      right: -100px;
+    }
+
+    .login-wrapper {
+      width: 100%;
+      max-width: 430px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Top Banner */
+    .banner {
+      background: linear-gradient(135deg, #008cff, #4f46e5);
+      padding: 14px 20px;
+      border-radius: 18px 18px 0 0;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 140, 255, 0.15);
+    }
+
+    .banner h1 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .banner p {
+      margin-top: 2px;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    /* Login Card */
+    .login-card {
+      background: rgba(15, 28, 46, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: none;
+      border-radius: 0 0 18px 18px;
+      padding: 35px 32px 30px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(15px);
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 18px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0ea5e9, #4f46e5);
+      box-shadow: 0 12px 30px rgba(14, 165, 233, 0.25);
+      font-size: 31px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 27px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #91a4ba;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 19px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #dce7f2;
+    }
+
+    .input-box {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #71869e;
+      font-size: 17px;
+    }
+
+    input {
+      width: 100%;
+      height: 50px;
+      border: 1px solid #263b52;
+      border-radius: 11px;
+      outline: none;
+      background: #0a1828;
+      color: #fff;
+      padding: 0 15px 0 45px;
+      font-family: inherit;
+      font-size: 14px;
+      transition: 0.25s ease;
+    }
+
+    input::placeholder {
+      color: #63788e;
+    }
+
+    input:focus {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.10);
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #71869e;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .password-input {
+      padding-right: 45px;
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 4px 0 23px;
+      font-size: 13px;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #91a4ba;
+      cursor: pointer;
+    }
+
+    .remember input {
+      width: 15px;
+      height: 15px;
+      accent-color: #0ea5e9;
+      padding: 0;
+    }
+
+    .forgot {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+
+    .forgot:hover {
+      text-decoration: underline;
+    }
+
+    .login-btn {
+      width: 100%;
+      height: 51px;
+      border: none;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #0ea5e9, #4f46e5);
+      color: #fff;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.25s ease;
+      box-shadow: 0 10px 25px rgba(14, 165, 233, 0.18);
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(14, 165, 233, 0.28);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .security {
+      text-align: center;
+      margin-top: 23px;
+      color: #71869e;
+      font-size: 12px;
+    }
+
+    .security span {
+      color: #34d399;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #60758b;
+      font-size: 12px;
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      body {
+        padding: 15px;
+      }
+
+      .login-card {
+        padding: 30px 22px 25px;
+      }
+
+      .title {
+        font-size: 24px;
+      }
+
+      .banner h1 {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="login-wrapper">
+
+    <!-- Banner -->
+    <div class="banner">
+      <h1>🔐 অ্যাডমিন প্যানেল</h1>
+      <p>নিরাপদ প্রশাসনিক ব্যবস্থাপনা</p>
+    </div>
+
+    <!-- Login Card -->
+    <section class="login-card">
+
+      <div class="logo">🛡️</div>
+
+      <h2 class="title">অ্যাডমিন লগইন</h2>
+      <p class="subtitle">
+        আপনার অ্যাডমিন অ্যাকাউন্টে প্রবেশ করুন
+      </p>
+
+      <form action="#" method="POST">
+
+        <!-- Username -->
+        <div class="form-group">
+          <label for="username">ইউজারনেম বা ইমেইল</label>
+
+          <div class="input-box">
+            <span class="input-icon">👤</span>
+
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="ইউজারনেম লিখুন"
+              autocomplete="username"
+              required
+            >
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">পাসওয়ার্ড</label>
+
+          <div class="input-box">
+            <span class="input-icon">🔒</span>
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="password-input"
+              placeholder="পাসওয়ার্ড লিখুন"
+              autocomplete="current-password"
+              required
+            >
+
+            <span
+              class="password-toggle"
+              onclick="togglePassword()"
+              title="পাসওয়ার্ড দেখুন"
+            >👁️</span>
+          </div>
+        </div>
+
+        <!-- Options -->
+        <div class="options">
+
+          <label class="remember">
+            <input type="checkbox" name="remember">
+            আমাকে মনে রাখুন
+          </label>
+
+          <a href="#" class="forgot">
+            পাসওয়ার্ড ভুলে গেছেন?
+          </a>
+
+        </div>
+
+        <!-- Login Button -->
+        <button type="submit" class="login-btn">
+          লগইন করুন →
+        </button>
+
+      </form>
+
+      <div class="security">
+        <span>●</span> আপনার তথ্য নিরাপদে সংরক্ষিত
+      </div>
+
+    </section>
+
+    <div class="footer">
+      © 2026 Admin Panel · সর্বস্বত্ব সংরক্ষিত
+    </div>
+
+  </main>
+
+  <script>
+    function togglePassword() {
+      const password = document.getElementById("password");
+
+      if (password.type === "password") {
+        password.type = "text";
+      } else {
+        password.type = "password";
+      }
+    }
+  </script>
+
+</body>
+</html>
